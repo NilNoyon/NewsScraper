@@ -8,6 +8,7 @@
 from sqlalchemy.orm import sessionmaker
 import sys
 from newsinfo.models import HeadlineItem,db_connect,create_headlines_table
+from newsinfo import items
 
 class NewsinfoPipeline(object):
     def __init__(self):
@@ -17,13 +18,15 @@ class NewsinfoPipeline(object):
 
     def process_item(self, item, spider):
         session = self.Session()
-        quote = HeadlineItem(**item)
+        headline = HeadlineItem(**item)
 
         try:
-            session.add(quote)
+            session.add(headline)
             session.commit()
         except:
             session.rollback()
             raise
         finally:
             session.close()
+
+        return item

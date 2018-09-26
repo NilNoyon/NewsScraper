@@ -17,4 +17,6 @@ class HeadlineItem(scrapy.Item):
     id = scrapy.Field()
     headline = scrapy.Field()
     href = scrapy.Field()
+    image_url = scrapy.Field()
     posting_date = scrapy.Field()
+    full_news = scrapy.Field()

@@ -13,24 +13,25 @@ class NewsSpider(scrapy.Spider):
 
 
     def parse(self, response):
-        headlines = response.css('div.gs-c-promo-body')
+        headlines = response.css('div.gs-c-promo')
 
         for headline in headlines:
-            text = headline.css('a.gs-c-promo-heading h3.gs-c-promo-heading__title::text').extract_first()
-            href = headline.css('a.gs-c-promo-heading::attr(href)').extract_first()
-            posting_date = headline.css('ul.gs-o-list-inline li.nw-c-promo-meta span.gs-c-timestamp time::attr(datetime)').extract()
-
+            text = headline.css('div.gs-c-promo-body a.gs-c-promo-heading h3.gs-c-promo-heading__title::text').extract_first()
+            href = headline.css('div.gs-c-promo-body a.gs-c-promo-heading::attr(href)').extract_first()
+            image_url = headline.css('div.gs-c-promo-image div.gs-o-media-island div.gs-o-responsive-image img::attr(src)').extract_first()
+            posting_date = headline.css('div.gs-c-promo-body ul.gs-o-list-inline li.nw-c-promo-meta span.gs-c-timestamp time::attr(datetime)').extract()
 
             if href is not None:
                 href =response.urljoin(href)
-                headline_data = HeadlineItem()
-                headline_data['headline']=''.join(text)
-                headline_data['href']=''.join(href)
-                headline_data['posting_date']=''.join(posting_date)
-                yield headline_data
-                # print(text,href,posting_date)
-                yield scrapy.Request(href,callback=self.parse)
-
-# class SportSpider(object):
-#     name = "sportsnews"
-#     start_urls = [""]
+                item = HeadlineItem()
+                item['headline']=''.join(text)
+                item['href']=''.join(href)
+                item['image_url']=image_url
+                item['posting_date']=''.join(posting_date)
+                request = scrapy.Request(url=href,callback=self.parse_href_data,dont_filter=True)
+                request.meta['item'] = item
+                yield request
+    def parse_href_data(self,response):
+        item = response.meta['item']
+        item['full_news'] = ''.join(response.css('div.story-body div.story-body__inner p::text').extract())
+        yield item

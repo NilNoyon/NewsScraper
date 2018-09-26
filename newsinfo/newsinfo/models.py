@@ -19,4 +19,6 @@ class HeadlineItem(DeclarativeBase):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     headline=Column('headline',String(500))
     href=Column('href',String(255))
+    image_url =Column('image_url',String(255),nullable=True)
     posting_date =Column('posting_date',String(255),nullable=True)
+    full_news = Column('full_news',String(10000),nullable=True)
