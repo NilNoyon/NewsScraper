@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+  {% if all_items %}
+      <table class="table table-bordered">
+        <tr class="table-secondary">
+          <h3>All Headlines with News :</h3>
+        </tr>
+        {% for things in all_items %}
+
+          <div class="card bg-light text-dark">
+            <div class="card-body">
+                <h2>{{ things.headline }}</h4>
+                <h6>{{things.posting_date}}</h6>
+                <h6>{{things.href}}</h6>
+                <img src="{{things.image_url}}" alt="news_image" height="200" width="200">
+                <h6>{{things.full_news}}</h6>
+            </div>
+          </div>
+          <br>
+        {% endfor %}
+      </table>
+
+  {% endif %}
+{% endblock %}
