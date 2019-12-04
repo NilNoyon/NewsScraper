@@ -24,7 +24,7 @@ cryptography-vectors==2.3
 cssselect==1.0.3
 csvkit==1.0.3
 dbfread==2.0.7
-Django==2.1
+Django==2.1.11
 django-calaccess-processed-data==0.2.9
 django-calaccess-raw-data==1.7.0
 django-calaccess-scraped-data==0.2.0
