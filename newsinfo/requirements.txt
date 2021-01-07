@@ -40,7 +40,7 @@ incremental==17.5.0
 isodate==0.6.0
 jdcal==1.4
 leather==0.3.3
-lxml==4.2.4
+lxml==4.6.2
 more-itertools==4.2.0
 mysql-connector-python==2.0.4
 opencivicdata==2.1.2
