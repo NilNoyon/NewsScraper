@@ -79,7 +79,7 @@ SQLAlchemy==1.2.11
 text-unidecode==1.2
 Twisted==18.7.0
 Unidecode==1.0.22
-urllib3==1.23
+urllib3==1.26.5
 w3lib==1.19.0
 wincertstore==0.2
 xlrd==1.1.0
